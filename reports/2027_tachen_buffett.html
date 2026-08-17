@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大成鋼（2027）巴菲特價值投資五步驟分析報告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF0F1;
+    --surface:#FFFFFF;
+    --ink:#1A2129;
+    --ink-soft:#4A5560;
+    --steel:#3D5A73;
+    --steel-dark:#2B4256;
+    --rust:#B5651D;
+    --rust-soft:#F3E3D1;
+    --green:#3F7C5D;
+    --green-soft:#E1EFE7;
+    --red:#B14A3D;
+    --red-soft:#F5E3E0;
+    --line:#D5D9DC;
+    --line-strong:#B8C0C6;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Zilla Slab',serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:var(--steel-dark);}
+
+  /* ---------- top nav / mill inspection stamp bar ---------- */
+  .stepnav{
+    position:sticky; top:0; z-index:50;
+    background:var(--steel-dark);
+    border-bottom:3px solid var(--rust);
+    overflow-x:auto;
+    white-space:nowrap;
+    -webkit-overflow-scrolling:touch;
+  }
+  .stepnav ul{
+    list-style:none; margin:0; padding:0 12px;
+    display:flex; align-items:stretch;
+  }
+  .stepnav li{display:flex;}
+  .stepnav a{
+    display:flex; align-items:center; gap:8px;
+    color:#C9D4DC;
+    text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    padding:13px 16px;
+    border-right:1px solid rgba(255,255,255,0.08);
+    transition:background .15s, color .15s;
+  }
+  .stepnav a .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:18px; height:18px; border-radius:50%;
+    border:1px solid #7C8B96; font-size:10px;
+  }
+  .stepnav a:hover{background:rgba(255,255,255,0.06); color:#fff;}
+  .stepnav a.active{color:#fff; background:rgba(181,101,29,0.35);}
+  .stepnav a.active .num{background:var(--rust); border-color:var(--rust); color:#fff;}
+
+  /* ---------- header ---------- */
+  .hero{
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 14px),
+      linear-gradient(160deg, var(--steel-dark), var(--steel) 70%);
+    color:#EDF1F3;
+    padding:52px 24px 40px;
+  }
+  .hero-inner{max-width:960px; margin:0 auto;}
+  .hero .badge-row{
+    display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+    border:1px solid rgba(255,255,255,0.35);
+    padding:4px 10px; border-radius:20px; color:#DCE4E9;
+  }
+  .hero h1{font-size:clamp(28px,4.5vw,44px); color:#fff;}
+  .hero .ticker{
+    font-family:'IBM Plex Mono',monospace; font-size:16px;
+    color:var(--rust); font-weight:600;
+  }
+  .hero .sub{margin-top:10px; color:#C9D4DC; font-size:15px; max-width:640px;}
+  .visitor-badge{margin-top:16px; opacity:0.85;}
+
+  /* ---------- layout ---------- */
+  main{max-width:960px; margin:0 auto; padding:0 24px 80px;}
+  section{padding-top:56px; scroll-margin-top:64px;}
+  .step-eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+    color:var(--rust); letter-spacing:0.08em; margin-bottom:8px;
+  }
+  section h2{font-size:26px; color:var(--steel-dark); margin-bottom:20px;}
+
+  /* riveted callout — the signature element */
+  .plate{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--line-strong);
+    border-left:5px solid var(--rust);
+    border-radius:var(--radius);
+    padding:18px 22px 18px 26px;
+    margin:18px 0 28px;
+  }
+  .plate::before, .plate::after{
+    content:"";
+    position:absolute; width:6px; height:6px; border-radius:50%;
+    background:var(--line-strong); top:10px;
+  }
+  .plate::before{left:8px;}
+  .plate::after{right:10px;}
+  .plate p{margin:0; font-size:15px;}
+  .plate strong{color:var(--rust);}
+  .plate.green{border-left-color:var(--green);}
+  .plate.green strong{color:var(--green);}
+
+  p{color:var(--ink-soft); font-size:15.5px;}
+
+  table{
+    width:100%; border-collapse:collapse; margin:14px 0 24px;
+    background:var(--surface); font-size:14px;
+  }
+  caption{text-align:left; font-size:12px; color:var(--ink-soft); margin-bottom:6px; font-family:'IBM Plex Mono',monospace;}
+  th,td{
+    border:1px solid var(--line); padding:9px 12px; text-align:left;
+  }
+  th{
+    background:var(--steel-dark); color:#fff; font-weight:500;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+  }
+  td.num, th.num{text-align:right; font-family:'IBM Plex Mono',monospace;}
+  tr:nth-child(even) td{background:#F7F8F9;}
+  td.flag-red{color:var(--red); font-weight:600;}
+  td.flag-green{color:var(--green); font-weight:600;}
+
+  .verdict-cell{font-weight:600;}
+  .verdict-cell.yes{color:var(--green);}
+  .verdict-cell.mid{color:var(--rust);}
+  .verdict-cell.no{color:var(--red);}
+
+  /* bar chart */
+  .barchart{margin:20px 0 30px;}
+  .bar-row{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
+  .bar-label{width:78px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); flex-shrink:0;}
+  .bar-track{flex:1; height:20px; background:#E4E7E9; position:relative; border-radius:2px;}
+  .bar-fill{height:100%; border-radius:2px;}
+  .bar-fill.pos{background:var(--steel);}
+  .bar-fill.neg{background:var(--red); opacity:0.85;}
+  .bar-value{width:78px; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:12px; flex-shrink:0;}
+  .zero-line{position:absolute; top:0; bottom:0; width:1px; background:var(--line-strong);}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  .summary-table td:first-child{font-family:'IBM Plex Mono',monospace; color:var(--steel-dark); white-space:nowrap;}
+
+  footer{
+    background:var(--steel-dark); color:#B9C4CB; padding:36px 24px;
+    font-size:12.5px; margin-top:40px;
+  }
+  footer .inner{max-width:960px; margin:0 auto;}
+  footer a{color:#DCE4E9;}
+  footer ol{padding-left:18px;}
+  footer li{margin-bottom:6px;}
+  .footer-meta{margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.15); font-family:'IBM Plex Mono',monospace;}
+
+  .disclaimer{
+    background:var(--rust-soft); border:1px solid var(--rust); border-radius:var(--radius);
+    padding:14px 18px; font-size:13.5px; color:#6B3E14; margin-bottom:16px;
+  }
+
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<nav class="stepnav" aria-label="報告章節導覽">
+  <ul>
+    <li><a href="#step1"><span class="num">1</span>能力圈</a></li>
+    <li><a href="#step2"><span class="num">2</span>護城河</a></li>
+    <li><a href="#step3"><span class="num">3</span>財務體質</a></li>
+    <li><a href="#step4"><span class="num">4</span>估值</a></li>
+    <li><a href="#step5"><span class="num">5</span>警訊總結</a></li>
+    <li><a href="#step6"><span class="num">6</span>決策推理</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="badge-row">
+      <span class="tag">上市 · 鋼鐵工業</span>
+      <span class="tag">通路兼製造 · 美國市場為主</span>
+    </div>
+    <h1><span class="ticker">2027</span> ・ 大成鋼</h1>
+    <p class="sub">巴菲特學派價值投資五步驟分析｜產業鏈定位：金屬通路商（鋁捲板／不鏽鋼／扣件），近年由「純通路」轉型「通路兼在地製造」，營收逾九成來自美國市場。</p>
+    <img class="visitor-badge" src="https://visitor-badge.laobi.icu/badge?page_id=bigwolfQQ.Buffett.2027" alt="Visitors">
+  </div>
+</header>
+
+<main>
+
+  <section id="step1">
+    <div class="step-eyebrow">【第 1 步／共 6 步】</div>
+    <h2>產業鏈定位與能力圈確認</h2>
+    <div class="plate">
+      <p><strong>結論：</strong>能力圈內。商業模式單純——金屬通路＋在地加工，五年後容易被驗證對錯；但獲利水準目前高度綁定美國關稅政策，這是政策變數，不是純粹的企業競爭力。</p>
+    </div>
+    <p>大成鋼起家於不鏽鋼管製造，2000 年後轉型為「通路＋倉儲」為核心的經營模式，公司自述定位近似「鋼鐵業的 7-11」。旗下另持有 38.8% 股權的大國鋼（8415），為全球最大不鏽鋼扣件通路商。</p>
+    <table>
+      <caption>營收結構（依產品別，約略比例，實際比例請以最新法說會揭露為準）</caption>
+      <thead><tr><th>產品線</th><th class="num">營收占比</th><th>市場地位</th></tr></thead>
+      <tbody>
+        <tr><td>鋁捲板</td><td class="num">約 37%</td><td>美國最大通路商，市佔逾 60%</td></tr>
+        <tr><td>不鏽鋼捲板／管件</td><td class="num">約 37%</td><td>美國前四大不鏽鋼經銷商</td></tr>
+        <tr><td>螺絲螺帽／扣件</td><td class="num">約 23%</td><td>透過大國鋼經營，全球最大扣件通路商之一</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <caption>產業鏈分層定位</caption>
+      <thead><tr><th>層級</th><th>特性</th><th>大成鋼所在位置</th></tr></thead>
+      <tbody>
+        <tr><td>上游冶煉／原料</td><td>資本密集、原物料循環</td><td>不涉及，向鋁業／鋼廠採購</td></tr>
+        <tr><td>通路與倉儲</td><td>規模經濟、交期為王</td><td><strong>核心業務</strong>，美國 20 州 32 據點</td></tr>
+        <tr><td>在地加工／製造</td><td>成本轉嫁能力、關稅屏障</td><td>德州廠鋁捲板生產，比重持續提升</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="step2">
+    <div class="step-eyebrow">【第 2 步／共 6 步】</div>
+    <h2>護城河檢驗（定性分析）</h2>
+    <div class="plate">
+      <p><strong>結論：</strong>護城河中等偏強，但高度依附政策環境。核心優勢是「德州在地產能＋60% 通路市佔」在高關稅環境下的成本與交期優勢；一旦關稅鬆綁，耐久性待驗證。</p>
+    </div>
+    <table>
+      <caption>逐項護城河證據檢查</caption>
+      <thead><tr><th>面向</th><th>具體證據</th><th>判斷</th></tr></thead>
+      <tbody>
+        <tr><td>轉換成本</td><td>全美 32 據點現貨倉儲、快速交付網絡</td><td class="verdict-cell mid">中等（交期黏著，非合約綁定）</td></tr>
+        <tr><td>規模效應</td><td>鋁捲板市佔 60%，法人預估可推升至 70%</td><td class="verdict-cell yes">有明確證據</td></tr>
+        <tr><td>無形資產</td><td>無強品牌／專利，主要為先行者通路優勢</td><td class="verdict-cell no">證據不足</td></tr>
+        <tr><td>成本優勢</td><td>德州廠可規避 50% 進口關稅，具在地生產成本優勢</td><td class="verdict-cell mid">明確但屬政策性</td></tr>
+        <tr><td>定價權</td><td>2025Q3 不鏽鋼毛利率升至 24.4%，2026Q2 綜合毛利率達 30.49%</td><td class="verdict-cell mid">短期明確改善，需觀察持續性</td></tr>
+        <tr><td>技術商品化風險</td><td>通路業技術門檻低，障礙主要來自規模與在地產能</td><td class="verdict-cell mid">中性</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="step3">
+    <div class="step-eyebrow">【第 3 步／共 6 步】</div>
+    <h2>財務體質篩選（定量指標）</h2>
+    <div class="plate">
+      <p><strong>結論：</strong>財務體質可接受，但盈餘與現金流循環化明顯，可預測性偏低。FCF 非連續多年為負，可進入估值步驟。</p>
+    </div>
+
+    <h3 style="font-size:17px; color:var(--steel-dark); margin-bottom:4px;">近 5 年 EPS（元）</h3>
+    <div class="barchart">
+      <div class="bar-row"><div class="bar-label">2022</div><div class="bar-track"><div class="bar-fill pos" style="width:100%"></div></div><div class="bar-value">6.25</div></div>
+      <div class="bar-row"><div class="bar-label">2023</div><div class="bar-track"><div class="bar-fill pos" style="width:39.7%"></div></div><div class="bar-value">2.48</div></div>
+      <div class="bar-row"><div class="bar-label">2024</div><div class="bar-track"><div class="bar-fill pos" style="width:24.6%"></div></div><div class="bar-value">1.54</div></div>
+      <div class="bar-row"><div class="bar-label">2025</div><div class="bar-track"><div class="bar-fill pos" style="width:46.2%"></div></div><div class="bar-value">2.89</div></div>
+      <div class="bar-row"><div class="bar-label">2026 Q1</div><div class="bar-track"><div class="bar-fill pos" style="width:18.7%"></div></div><div class="bar-value">1.17（單季）</div></div>
+    </div>
+
+    <h3 style="font-size:17px; color:var(--steel-dark); margin-bottom:4px;">近 5 年自由現金流（約略值，億元）</h3>
+    <div class="barchart">
+      <div class="bar-row"><div class="bar-label">2022</div><div class="bar-track"><div class="zero-line" style="left:12.7%"></div><div class="bar-fill neg" style="width:12.7%"></div></div><div class="bar-value">-20.0</div></div>
+      <div class="bar-row"><div class="bar-label">2023</div><div class="bar-track"><div class="zero-line" style="left:12.7%"></div><div class="bar-fill pos" style="margin-left:12.7%; width:87.3%"></div></div><div class="bar-value">+157.3</div></div>
+      <div class="bar-row"><div class="bar-label">2024</div><div class="bar-track"><div class="zero-line" style="left:12.7%"></div><div class="bar-fill pos" style="margin-left:12.7%; width:48.7%"></div></div><div class="bar-value">+87.7</div></div>
+      <div class="bar-row"><div class="bar-label">2025</div><div class="bar-track"><div class="zero-line" style="left:12.7%"></div><div class="bar-fill neg" style="width:12.7%"></div></div><div class="bar-value">-52.0</div></div>
+      <div class="bar-row"><div class="bar-label">2026 Q1</div><div class="bar-track"><div class="zero-line" style="left:12.7%"></div><div class="bar-fill pos" style="margin-left:12.7%; width:11.5%"></div></div><div class="bar-value">+20.7（單季）</div></div>
+    </div>
+    <p style="font-size:13px;">推算數字：FCF 由各季度「營業現金流＋投資現金流」加總換算，資料取自 Yahoo 股市現金流量表。2025 年轉負主因庫存回補與德州廠擴產資本支出，非經營面惡化。</p>
+
+    <table>
+      <caption>其他財務指標判斷</caption>
+      <thead><tr><th>指標</th><th class="num">數值</th><th>判斷重點</th></tr></thead>
+      <tbody>
+        <tr><td>負債比</td><td class="num">約 43.5%（2024Q3）</td><td>中度槓桿，金屬通路業因鋪貨與庫存需求偏高屬產業常態</td></tr>
+        <tr><td>毛利率（最新單季）</td><td class="num">30.49%</td><td>較 2024Q3 的 19.42% 大幅跳升，速度快於典型護城河擴張速度</td></tr>
+        <tr><td>營益率（最新單季）</td><td class="num">21.11%</td><td>同步跳升，反映關稅紅利傳導至營業利益</td></tr>
+        <tr><td>盈餘可預測性</td><td class="num">波動 4 倍以上</td><td class="flag-red">EPS 由 2022 的 6.25 元探底至 2024 的 1.54 元，波動大</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="step4">
+    <div class="step-eyebrow">【第 4 步／共 6 步】</div>
+    <h2>估值與安全邊際</h2>
+    <p>放在最後一步的原因：先確認商業模式與財務體質，再看估值，避免「股價一直漲、故事講得好，所以先假設它值這個價錢」的認知偏誤。</p>
+    <div class="plate">
+      <p><strong>結論：難以精確估值。</strong>10.23 倍本益比看似便宜，但這正反映市場對「關稅紅利能否持續」的疑慮，而非單純錯殺。</p>
+    </div>
+    <div class="grid2">
+      <table>
+        <caption>目前市場數據（2026/8/17 查詢，股價 50.00 元）</caption>
+        <tbody>
+          <tr><td>本益比</td><td class="num">10.23 倍</td></tr>
+          <tr><td>股價淨值比</td><td class="num">1.47 倍</td></tr>
+          <tr><td>近四季 EPS</td><td class="num">4.89 元</td></tr>
+          <tr><td>每股淨值</td><td class="num">33.98 元</td></tr>
+          <tr><td>殖利率</td><td class="num">3.15%</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <caption>同業 vs 自身歷史區間（參考）</caption>
+        <tbody>
+          <tr><td>同業平均本益比</td><td class="num">約 13-15 倍</td></tr>
+          <tr><td>公司過去 5 年本益比區間</td><td class="num">約 8-25 倍（隨循環波動）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 style="font-size:17px; color:var(--steel-dark);">反向 DCF 觀點</h3>
+    <p>以近四季 EPS 4.89 元、股價 50 元計算，本益比僅 10.23 倍，市場隱含假設相當保守——並未把 2025-2026 關稅紅利帶來的獲利跳升視為新常態，而是預期獲利終將隨政策或原物料週期回落。</p>
+    <h3 style="font-size:17px; color:var(--steel-dark);">保守情境估值</h3>
+    <p>若採用不含 2022 循環高點與 2025-26 關稅紅利高點的 EPS 中樞（約 2-3 元）估算，目前股價對應本益比反落在 17-25 倍區間，估值合理性高度依賴「關稅紅利能維持多久」，難以用單一安全邊際百分比呈現。</p>
+    <div class="disclaimer">傳統安全邊際估算方法在「短期基本面因政策急遽改善」的公司適用性有限，本節數字僅供參考，不構成目標價。</div>
+  </section>
+
+  <section id="step5">
+    <div class="step-eyebrow">【第 5 步／共 6 步】</div>
+    <h2>巴菲特警訊檢查與總結評分</h2>
+    <table>
+      <caption>警訊檢查清單</caption>
+      <thead><tr><th>檢查項目</th><th>發現</th></tr></thead>
+      <tbody>
+        <tr><td>管理層是否過度強調股價／題材</td><td>未發現明顯異常，法說會聚焦產能與市佔數據</td></tr>
+        <tr><td>是否靠增資稀釋股東維持擴張</td><td>未發現，FCF 波動主要來自庫存與資本支出週期</td></tr>
+        <tr><td>客戶／市場集中度</td><td class="flag-red">營收逾九成集中美國市場，屬高度政策集中度風險</td></tr>
+        <tr><td>技術／商業模式典範轉移風險</td><td>通路業技術門檻低，風險主要在關稅政策轉向</td></tr>
+        <tr><td>內部人異常申讓持股</td><td>查詢範圍內未發現異常，建議查閱最新公開資訊觀測站申報資料確認</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:17px; color:var(--steel-dark);">總結評分表</h3>
+    <table class="summary-table">
+      <tbody>
+        <tr><td>能力圈</td><td class="verdict-cell yes">是（商業模式簡單易懂）</td></tr>
+        <tr><td>護城河強度</td><td class="verdict-cell mid">中（通路規模＋在地產能，依附關稅政策）</td></tr>
+        <tr><td>財務體質</td><td class="verdict-cell mid">可接受（FCF 波動大，盈餘可預測性偏低）</td></tr>
+        <tr><td>估值</td><td class="verdict-cell mid">難以精確估值</td></tr>
+        <tr><td>警訊</td><td class="verdict-cell no">政策／單一市場集中度風險；毛利率跳升速度需持續驗證</td></tr>
+      </tbody>
+    </table>
+    <div class="plate green">
+      <p><strong>綜合建議：</strong>體質不錯但需等待更大安全邊際／持續追蹤觀察。能力圈與商業模式沒有問題，但目前獲利水準內含大量關稅紅利成分，建議列入觀察名單而非直接視為便宜股。</p>
+    </div>
+  </section>
+
+  <section id="step6">
+    <div class="step-eyebrow">【第 6 步／共 6 步】</div>
+    <h2>投資決策推理</h2>
+    <div class="disclaimer">以下為推理與觀點，不是專業投資建議，本人不是理財顧問。</div>
+
+    <h3 style="font-size:17px; color:var(--steel-dark);">若尚未持有，會不會現在進場？</h3>
+    <p>不會急著進場。目前約 30% 的毛利率與 10.23 倍本益比看似便宜，但這個獲利水準高度依賴美國 232 條款鋼鋁關稅（50%）維持不變，屬政策變數，護城河評分僅在「中」，尚不足以無視政策風險直接買進。</p>
+
+    <h3 style="font-size:17px; color:var(--steel-dark);">若已持有，續抱還是賣出？</h3>
+    <p>傾向續抱觀察，而非賣出。財務體質關卡已通過（FCF 沒有連續多年為負，也非靠增資撐營運），2025 年 FCF 轉負主要是為吃下更高關稅紅利而做的庫存回補與德州廠擴產資本支出，屬合理擴張而非經營惡化訊號。</p>
+
+    <h3 style="font-size:17px; color:var(--steel-dark);">具體、可驗證的觀察訊號</h3>
+    <table>
+      <thead><tr><th>訊號</th><th>觀察重點</th></tr></thead>
+      <tbody>
+        <tr><td>關稅政策訊號</td><td>美國是否於未來 1-2 年調降或豁免鋼鋁 232 關稅；不變或收緊 → 護城河耐久性上修，鬆綁 → 需重估毛利率能否維持 20% 以上</td></tr>
+        <tr><td>毛利率驗證訊號</td><td>連續 2-3 季不鏽鋼與鋁品毛利率是否守在 20% 以上，而非目前偏高的單季 30% 數字</td></tr>
+        <tr><td>產能自製率訊號</td><td>德州廠熱軋產線擴產完成後，自製比率提升是否確實反映在毛利率與 FCF 轉正上</td></tr>
+        <tr><td>安全邊際訊號</td><td>若股價因政策疑慮回檔使本益比壓縮至 8 倍以下，且毛利率驗證訊號成立，將是更明確的進場時機</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>
+  <div class="inner">
+    <strong style="color:#fff; font-family:'Zilla Slab',serif; font-size:15px;">資料來源</strong>
+    <ol>
+      <li>大成鋼 2027 總覽與財報｜鉅亨網 — <a href="https://www.cnyes.com/twstock/2027" target="_blank" rel="noopener">cnyes.com/twstock/2027</a></li>
+      <li>大成鋼做什麼？公司小百科（營收結構、近期 EPS）｜nStock — <a href="https://www.nstock.tw/%E5%A4%A7%E6%88%90%E9%8B%BC%E5%81%9A%E4%BB%80%E9%BA%BC.html" target="_blank" rel="noopener">nstock.tw</a></li>
+      <li>大成鋼美國鋁捲板龍頭、關稅優勢與財報亮點｜口袋學堂 — <a href="https://www.pocket.tw/school/report/SCHOOL/6118/" target="_blank" rel="noopener">pocket.tw</a></li>
+      <li>《價值型投資》大成鋼：美國製造趨勢與產能優勢｜鉅亨網專家觀點 — <a href="https://news.cnyes.com/news/id/6080710" target="_blank" rel="noopener">news.cnyes.com</a></li>
+      <li>美國最大鋼鋁廠大成鋼個股分析｜富果直送 — <a href="https://blog.fugle.tw/post/tachen-stainless-pipe-stock-analysis" target="_blank" rel="noopener">blog.fugle.tw</a></li>
+      <li>大成鋼受惠美國關稅政策，雙引擎啟動｜優分析 UAnalyze — <a href="https://uanalyze.com.tw/articles/7497613793" target="_blank" rel="noopener">uanalyze.com.tw</a></li>
+      <li>美國鋁捲板龍頭大成鋼，透過併購佔據領導地位｜Vocus — <a href="https://vocus.cc/article/68fde8c6fd89780001db7291" target="_blank" rel="noopener">vocus.cc</a></li>
+      <li>美國鋼鋁進口關稅壁壘高築，大成鋼展望樂觀｜經濟日報 — <a href="https://money.udn.com/money/story/5710/9315689" target="_blank" rel="noopener">money.udn.com</a></li>
+      <li>AI資料中心與德州擴產推升大成鋼營收成長動能｜理財周刊 — <a href="https://www.moneyweekly.com.tw/ArticleData/Info/Article/242023" target="_blank" rel="noopener">moneyweekly.com.tw</a></li>
+      <li>2025/11/26 法說會：Q3 不銹鋼毛利率升至 24.4%｜YouTube — <a href="https://www.youtube.com/watch?v=kOAptWjdLx4" target="_blank" rel="noopener">youtube.com</a></li>
+      <li>大成鋼每股盈餘（近 20 季）｜Yahoo 股市 — <a href="https://tw.stock.yahoo.com/quote/2027.TW/eps" target="_blank" rel="noopener">tw.stock.yahoo.com/quote/2027.TW/eps</a></li>
+      <li>大成鋼現金流量表（近 20 季）｜Yahoo 股市 — <a href="https://tw.stock.yahoo.com/quote/2027.TW/cash-flow-statement" target="_blank" rel="noopener">tw.stock.yahoo.com/quote/2027.TW/cash-flow-statement</a></li>
+      <li>大成鋼負債比｜財報狗 — <a href="https://statementdog.com/analysis/2027/financial-structure-ratio" target="_blank" rel="noopener">statementdog.com</a></li>
+    </ol>
+    <div class="footer-meta">報告版本 v1.0 ｜ 生成時間 2026-08-17</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.stepnav a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+
+  function setActive(id){
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        history.replaceState(null, '', a.getAttribute('href'));
+      }
+    });
+  });
+
+  if('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          setActive(entry.target.id);
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(function(s){ if(s) observer.observe(s); });
+  }
+})();
+</script>
+
+</body>
+</html>
